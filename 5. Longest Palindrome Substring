@@ -1,0 +1,26 @@
+class Solution {
+    public String longestPalindrome(String s) {
+        if (s.length()<=0){
+            return s;
+        }
+        String MaxString=s.substring(0,1);
+        for (int i=0;i<s.length()-1;i++){
+            String odd=ExpandCenter(s,i,i);
+            String even=ExpandCenter(s,i,i+1);
+            if (odd.length()>MaxString.length()){
+                MaxString=odd;
+            }
+            if (even.length()>MaxString.length()){
+                MaxString=even;
+            }
+        }
+        return MaxString;
+    }
+    private static String ExpandCenter(String s,int left,int right){
+        while (left>=0 && right<s.length() && s.charAt(left)==s.charAt(right)){
+            left--;
+            right++;
+        }
+        return s.substring(left+1,right);
+    }
+}
