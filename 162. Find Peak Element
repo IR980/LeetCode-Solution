@@ -1,0 +1,23 @@
+class Solution {
+    public int findPeakElement(int[] nums) {
+        int start=0;
+        int end=nums.length-1;
+        while (start < end){
+            //find middle element
+            int mid=(start + end)/2;
+            if (nums[mid] > nums[mid+1]){
+                // you are descending part of array
+                // this is why end != mid-1
+                end=mid;
+            }else {
+                // you are in ascending part of an array
+                start=mid+1; // because we know that mid+1 element greater than mid elements
+            }
+        }
+        // in the end , start==end and pointing to the large number because of the 2 checks above
+        // start and end are always trying to find max element of the above 2 checks
+        //hence they are pointing to just one element this is the max one because that is what check say
+        return start;  // start and end both are equal return
+    
+    }
+}
