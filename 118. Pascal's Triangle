@@ -1,0 +1,22 @@
+class Solution {
+    public  static ArrayList<Integer> call(int row){
+        int result=1;
+
+        ArrayList<Integer> nums=new ArrayList<>();
+        nums.add(result);
+        for (int i=1;i<row;i++){
+            result=result*(row-i);
+            result=result/i;
+            nums.add(result);
+        }
+        return nums;
+    }
+
+    public static List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> arr=new ArrayList<>();
+        for (int i=1;i<=numRows;i++){
+            arr.add(call(i));
+        }
+        return arr;
+    }    
+}
