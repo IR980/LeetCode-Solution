@@ -1,0 +1,26 @@
+class Solution {
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> result=new ArrayList<>();
+        CombinationSum(1,k,n,new ArrayList<>(),result);
+        return result;
+    }
+    private static void CombinationSum(int start,int k,int n,List<Integer> current,List<List<Integer>> result){
+        if (n<0){
+            return;
+        }
+        if (current.size()==k) {
+            if (n==0){
+                result.add(new ArrayList<>(current));
+
+            }
+            return;
+        }
+        if (current.size() >= k) return; // Early exit if size exceeds k
+
+        for (int i=start;i<=9;i++){
+            current.add(i);
+            CombinationSum(i+1,k,n-i,current,result);
+            current.remove(current.size()-1);
+        }    
+    }
+}
