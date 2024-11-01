@@ -1,0 +1,37 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> result=new ArrayList<>();
+        backtrack(s,0,new ArrayList<>(),result);
+        return result;
+
+    }
+    private void backtrack(String s,int start,List<String> path,List<List<String>>result){
+        // base case
+        if (start==s.length()){
+            result.add(new ArrayList<>(path));
+            return;
+        }
+        // recursion
+        for (int last=start+1;last<=s.length();last++){
+            String currentSub=s.substring(start,last);
+            if(isPalindrome(currentSub)){
+                path.add(currentSub);
+                backtrack(s,last,path,result);// function call
+                path.remove(path.size()-1);// backtracking step
+            }
+        }
+
+    }
+    private boolean isPalindrome(String sub){
+        int left=0;
+        int right=sub.length()-1;
+        while (left<right){
+            if (sub.charAt(left)!=sub.charAt(right)){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
