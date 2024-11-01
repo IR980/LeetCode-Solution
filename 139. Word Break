@@ -1,0 +1,29 @@
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> wordSet = new HashSet<>(wordDict); // Using a set for faster lookups
+        Map<String, Boolean> memo = new HashMap<>(); // Memoization map to store intermediate results
+        return wordBreakHelper(s, wordSet, memo);
+    }
+
+    private boolean wordBreakHelper(String s, Set<String> wordSet, Map<String, Boolean> memo) {
+        if (s.isEmpty()) {
+            return true;
+        }
+        if (memo.containsKey(s)) {
+            return memo.get(s);
+        }
+
+        for (String word : wordSet) {
+            if (s.startsWith(word)) {
+                boolean canBreak = wordBreakHelper(s.substring(word.length()), wordSet, memo);
+                if (canBreak) {
+                    memo.put(s, true);
+                    return true;
+                }
+            }
+        }
+
+        memo.put(s, false);
+        return false;
+    }
+}
