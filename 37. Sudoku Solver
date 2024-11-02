@@ -1,0 +1,48 @@
+class Solution {
+    public void solveSudoku(char[][] board) {
+        solver(board);
+    }
+
+    private boolean solver(char[][] board) {
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
+                if (board[row][col] == '.') {
+                    for (char num = '1'; num <= '9'; num++) {
+                        if (isValid(board, row, col, num)) {
+                            board[row][col] = num;
+                            if (solver(board)) {
+                                return true;
+                            }
+                            board[row][col] = '.';  // Backtrack
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean isValid(char[][] board, int row, int col, char num) {
+        int startRow = 3 * (row / 3);
+        int startCol = 3 * (col / 3);
+
+        for (int i = 0; i < 9; i++) {
+            // Check row and column
+            if (board[row][i] == num || board[i][col] == num) {
+                return false;
+            }
+        }
+
+        // Check 3x3 subgrid
+        for (int r = startRow; r < startRow + 3; r++) {
+            for (int c = startCol; c < startCol + 3; c++) {
+                if (board[r][c] == num) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+}
