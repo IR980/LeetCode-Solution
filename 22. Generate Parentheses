@@ -1,0 +1,23 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+                List<String> list=new ArrayList<>();
+        char[] ch=new char[2*n];
+        backtrack(list,ch,0,n,n);
+        return list;
+    }
+    public static void backtrack(List<String>list,char[]ch,int index,int open,int close){
+        if (open==0 && close==0){
+            list.add(new String(ch));
+            return;
+        }
+        if (open>0){
+            ch[index]='(';
+            backtrack(list,ch,index+1,open-1,close);
+        }
+        if (close>0 && close>open){
+            ch[index]=')';
+            backtrack(list,ch,index+1,open,close-1);
+        }    
+
+    }
+}
