@@ -1,0 +1,29 @@
+class Solution {
+    public String reverseWords(String s) {
+        int start = 0;
+        int end = s.length() - 1;
+        
+        // Trim leading and trailing spaces
+        while (start <= end && s.charAt(start) == ' ') {
+            start++;
+        }
+        while (start <= end && s.charAt(end) == ' ') {
+            end--;
+        }
+        
+        // Get trimmed substring
+        String subString = s.substring(start, end + 1);
+        
+        // Split the trimmed substring by spaces
+        String[] words = subString.split("\\s+");
+        
+        StringBuilder sb = new StringBuilder();
+        for (int i = words.length - 1; i > 0; i--) {
+            sb.append(words[i]).append(" ");
+        }
+        sb.append(words[0]); // Append the last word without a trailing space
+        
+        return sb.toString();
+    
+    }
+}
