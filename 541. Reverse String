@@ -1,0 +1,21 @@
+class Solution {
+    public String reverseStr(String s, int k) {
+        char[] ch = s.toCharArray();
+        int n = ch.length;
+        for (int start = 0; start < n; start += 2 * k) {
+            int end = Math.min(start + k - 1, n - 1); // Corrected here to use Math.min
+            reverse(ch, start, end);
+        }
+        return new String(ch);
+    }
+
+    private static void reverse(char[] ch, int left, int right) {
+        while (left < right) {
+            char temp = ch[left];
+            ch[left] = ch[right];
+            ch[right] = temp;
+            left++;
+            right--;
+        }
+    }
+}
