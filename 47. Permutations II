@@ -1,0 +1,24 @@
+class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> ans=new ArrayList<>();
+        Arrays.sort(nums);// sort the arrays
+        backtrack(nums,ans,new ArrayList<>(),new boolean[nums.length]);
+        return ans;
+    }
+    private void backtrack(int[] nums,List<List<Integer>>ans,List<Integer>subAns,boolean[] b){
+        if (subAns.size()==nums.length){
+            ans.add(new ArrayList<>(subAns));
+        }else {
+            for (int i=0;i<nums.length;i++){
+                if (b[i] || i>0 && nums[i]==nums[i-1] && !b[i-1]){ // duplication check
+                    continue;
+                }
+                b[i]=true;
+                subAns.add(nums[i]);
+                backtrack(nums,ans,subAns,b); //function call
+                b[i]=false;
+                subAns.remove(subAns.size()-1); // backtracking call
+            }
+        }
+    }
+}
